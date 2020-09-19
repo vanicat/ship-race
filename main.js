@@ -34,7 +34,7 @@ var config = {
     },
     scene: [ Starter ],
     parent: "game",
-    textStyle: { fontSize: '32px', fill: '#000', boundsAlignH: "center", boundsAlignV: "middle" }
+    textStyle: { fontSize: '32px', fill: '#FFF', boundsAlignH: "center", boundsAlignV: "middle" }
 };
 
 
