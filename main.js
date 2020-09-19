@@ -6,16 +6,18 @@ var Starter = new Phaser.Class({
 
     preload: function ()
     {
+        this.load.image('boat', 'assets/batteau.svg');
     },
 
     create: function ()
     {
 //        this.scene.add("game", MainGame, false);
+        this.scene.add("menu", Menu, false);
     },
 
     update: function ()
     {
-//        this.scene.start("menu", null);
+        this.scene.start("menu", null);
     }
 })
 
@@ -38,4 +40,5 @@ var config = {
 
 function main() {
     game = new Phaser.Game(config);
+    console.log("yo")
 }
