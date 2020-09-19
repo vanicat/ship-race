@@ -47,6 +47,8 @@ var MainGame =  new Phaser.Class({
 
         const belowLayer = map.createStaticLayer("sealevel", tileset, 0, 0);
 
+        belowLayer.setCollisionByProperty({ collides: true });
+
         const spawnPoint = map.findObject("objects", obj => obj.name === "start");
 
         let ship = this.add.image(spawnPoint.x, spawnPoint.y, 'boat');
@@ -56,7 +58,9 @@ var MainGame =  new Phaser.Class({
         this.physics.add.existing(ship);
         this.ship = ship;
 
-	this.cameras.main.startFollow(this.ship);
+        this.physics.add.collider(ship, belowLayer);
+
+        this.cameras.main.startFollow(this.ship);
 
         this.current = Phaser.Math.Vector2(0, 0);
 
