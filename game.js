@@ -116,5 +116,8 @@ var MainGame =  new Phaser.Class({
             }
         }
 
+        var cam = this.cameras.main;
+        cam.centerOn(this.ship.x, this.ship.y);
+
     }
 });
