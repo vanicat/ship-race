@@ -1,9 +1,9 @@
 all: images
 
-images: assets/tile.png
+images: tile.png batteau.png
 
 #l’ordre compte !
-assets/tile.png: BlackVague.png withRedVague.png 
+tile.png: BlackVague.png withRedVague.png rock.png batteau.png
 	montage -tile 10x $^ -geometry +0+0 tile.png
 
 %.png: %.svg
