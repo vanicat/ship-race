@@ -25,12 +25,51 @@ var MainGame =  new Phaser.Class({
         for (let i = 0; i < pads.length; i++)
         {
             var gamepad = pads[i];
-
-            // console.log(gamepad.L1, gamepad.L2, gamepad.leftStick, gamepad.R1, gamepad.R2);
+            var L2, R2;
 
             if (!gamepad)
             {
                 continue;
+            }
+
+            if (!this.myonlylog) {
+                console.log(gamepad);
+                this.myonlylog = true;
+            }
+
+            if (config.isFirefox)
+            {
+                if (gamepad.axes[5].value == 0 && !this.firstTrueAxesR2)
+                {
+                    R2 = 0;
+                }
+                else
+                {
+                    this.firstTrueAxesR2 = true;
+                    R2 = (1 + gamepad.axes[5].value) / 2;
+                }
+
+                if (navigator.getGamepads()[i].axes[2] == 0 && !this.firstTrueAxesL2)
+                {
+                    L2 = 0;
+                }
+                else
+                {
+                    this.firstTrueAxesL2 = true;
+                    L2 = (1 + navigator.getGamepads()[i].axes[2]) / 2;
+                }
+            }
+            else
+            {
+                L2 = gamepad.L2;
+                R2 = gamepad.R2;
+            }
+
+            for (let j = 0; j < gamepad.axes.length; j++)
+            {
+                if (gamepad.axes[j] && gamepad.axes[j].value > 0) {
+                //    console.log(j, gamepad.axes[j]); // seem to be 5 and 6 for firefox
+                }
             }
 
             //TODO: may be use constant accel, and stick as new maximum.
@@ -49,7 +88,7 @@ var MainGame =  new Phaser.Class({
             {
                 this.ship.body.angularAcceleration = 0;
             }
-            acceleration = (gamepad.L2 - gamepad.R2) * 10; // in config!
+            acceleration = (L2 - R2) * 10; // in config!
 
             var angle = this.ship.body.angle / Math.PI * 180;
             var rotation = this.ship.body.rotation-90;
