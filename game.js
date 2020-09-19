@@ -41,6 +41,12 @@ var MainGame =  new Phaser.Class({
 
     create: function () 
     {
+        const map = this.make.tilemap({ key: "level1" });
+
+        const tileset = map.addTilesetImage("tiles", "tiles");
+
+        const belowLayer = map.createStaticLayer("sealevel", tileset, 0, 0);
+
         let ship = this.add.image(config.width/2, config.height/2, 'boat');
         //ship.anchor.setTo(0.5, 0.5); comment on fait en
         ship.setScale(config.shipSize);

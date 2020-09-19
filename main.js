@@ -7,6 +7,8 @@ var Starter = new Phaser.Class({
     preload: function ()
     {
         this.load.image('boat', 'assets/batteau.svg');
+        this.load.image('tiles', 'assets/tile.png');
+        this.load.tilemapTiledJSON('level1', 'assets/macarte.json');
     },
 
     create: function ()
