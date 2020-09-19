@@ -13,6 +13,15 @@ var Starter = new Phaser.Class({
     {
         this.scene.add("game", MainGame, false);
         this.scene.add("menu", Menu, false);
+
+        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1)
+        {
+            config.isFirefox = true;
+        }
+        else
+        {
+            config.isFirefox = false;
+        }
     },
 
     update: function ()
