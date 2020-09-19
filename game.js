@@ -56,6 +56,10 @@ var MainGame =  new Phaser.Class({
         this.physics.add.existing(ship);
         this.ship = ship;
 
+	this.cameras.main.startFollow(this.ship);
+
+        this.current = Phaser.Math.Vector2(0, 0);
+
         ship.body.maxAngular = 100;
         ship.body.angularDrag = 10; // TODO: this in configure
         ship.body.drag = 20;
