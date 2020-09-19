@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
      inkscape:cx="726.03589"
-     inkscape:cy="520.39599"
+     inkscape:cy="512.31477"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -53,11 +53,32 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ff6600;stroke:#803300;stroke-width:1.16031;stroke-opacity:1"
+       style="fill:#0000ff;stroke:#803300;stroke-width:1.16031;stroke-opacity:1"
        id="rect14"
        width="210.05643"
        height="297.19046"
        x="0.74100316"
        y="0.5641095" />
+    <rect
+       style="fill:#ff0000;stroke:#803300;stroke-width:0.264583;stroke-opacity:1"
+       id="rect8"
+       width="107.07449"
+       height="58.715282"
+       x="57.451756"
+       y="27.409546" />
+    <rect
+       style="fill:#ff0000;stroke:#803300;stroke-width:0.264583;stroke-opacity:1"
+       id="rect10"
+       width="24.663706"
+       height="94.113586"
+       x="41.593819"
+       y="186.23622" />
+    <rect
+       style="fill:#ff0000;stroke:#803300;stroke-width:0.264583;stroke-opacity:1"
+       id="rect12"
+       width="22.591356"
+       height="96.447365"
+       x="145.08109"
+       y="186.33104" />
   </g>
 </svg>
