@@ -47,8 +47,10 @@ var config = {
     scene: [ Starter ],
     parent: "game",
     textStyle: { fontSize: '32px', fill: '#FFF', boundsAlignH: "center", boundsAlignV: "middle" },
-    shipSize: 0.1,
-    lateral_drag: 1,
+    shipSize: 0.05,
+    lateralDrag: 3,
+    angularVelocity: 20,
+    angularAccel: 20
 };
 
 

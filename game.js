@@ -76,19 +76,19 @@ var MainGame =  new Phaser.Class({
 
             if (gamepad.leftStick.x > 0.05)
             {
-                this.ship.body.angularAcceleration = 50;
-                this.ship.body.maxAngular = 50 * gamepad.leftStick.x;
+                this.ship.body.angularAcceleration = config.angularAccel;
+                this.ship.body.maxAngular = config.angularVelocity * gamepad.leftStick.x;
             }
             else if (gamepad.leftStick.x < -0.05)
             {
-                this.ship.body.angularAcceleration = -50;
-                this.ship.body.maxAngular = -50 * gamepad.leftStick.x;
+                this.ship.body.angularAcceleration = -config.angularAccel;
+                this.ship.body.maxAngular = -config.angularVelocity * gamepad.leftStick.x;
             }
             else 
             {
                 this.ship.body.angularAcceleration = 0;
             }
-            acceleration = (L2 - R2) * 10; // in config!
+            acceleration = (L2 - R2/2) * config.acceleration;
 
             var velocity = this.ship.body.velocity.clone();
             var rotation = this.ship.body.rotation-90;
@@ -96,7 +96,7 @@ var MainGame =  new Phaser.Class({
             var perp_component = unit_dir.clone().normalizeLeftHand();
 
             var perp_velocity = perp_component.dot(velocity); // add current
-            perp_component.scale(-perp_velocity * config.lateral_drag);
+            perp_component.scale(-perp_velocity * config.lateralDrag);
 
             a1 = this.physics.velocityFromAngle(rotation, acceleration);
             a2 = perp_component;
