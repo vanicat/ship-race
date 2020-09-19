@@ -11,7 +11,7 @@ var Starter = new Phaser.Class({
 
     create: function ()
     {
-//        this.scene.add("game", MainGame, false);
+        this.scene.add("game", MainGame, false);
         this.scene.add("menu", Menu, false);
     },
 
@@ -24,8 +24,11 @@ var Starter = new Phaser.Class({
 
 var config = {
     type: Phaser.AUTO,
-    width: 1024,
-    height: 700,
+    width: 900,
+    height: 600,
+    input: {
+        gamepad: true,
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -34,7 +37,9 @@ var config = {
     },
     scene: [ Starter ],
     parent: "game",
-    textStyle: { fontSize: '32px', fill: '#FFF', boundsAlignH: "center", boundsAlignV: "middle" }
+    textStyle: { fontSize: '32px', fill: '#FFF', boundsAlignH: "center", boundsAlignV: "middle" },
+    shipSize: 0.1,
+    lateral_drag: 1,
 };
 
 
