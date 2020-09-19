@@ -1,3 +1,41 @@
+function getInput(gamepad)
+{
+    if (!this.myonlylog) {
+        console.log(gamepad);
+        this.myonlylog = true;
+    }
+
+    if (config.isFirefox)
+    {
+        if (gamepad.axes[5].value == 0 && !this.firstTrueAxesR2)
+        {
+            R2 = 0;
+        }
+        else
+        {
+            this.firstTrueAxesR2 = true;
+            R2 = (1 + gamepad.axes[5].value) / 2;
+        }
+
+        if (navigator.getGamepads()[i].axes[2] == 0 && !this.firstTrueAxesL2)
+        {
+            L2 = 0;
+        }
+        else
+        {
+            this.firstTrueAxesL2 = true;
+            L2 = (1 + navigator.getGamepads()[i].axes[2]) / 2;
+        }
+    }
+    else
+    {
+        L2 = gamepad.L2;
+        R2 = gamepad.R2;
+    }
+
+    return { accel: L2, reverse: R2, x: gamepad.leftStick.x };
+}
+
 var MainGame =  new Phaser.Class({
     Extends: Phaser.Scene,
 
@@ -21,6 +59,8 @@ var MainGame =  new Phaser.Class({
 
     update: function () 
     {
+        window.myGame = this;
+
         var pads = this.input.gamepad.gamepads;
         for (let i = 0; i < pads.length; i++)
         {
@@ -32,54 +72,16 @@ var MainGame =  new Phaser.Class({
                 continue;
             }
 
-            if (!this.myonlylog) {
-                console.log(gamepad);
-                this.myonlylog = true;
-            }
-
-            if (config.isFirefox)
-            {
-                if (gamepad.axes[5].value == 0 && !this.firstTrueAxesR2)
-                {
-                    R2 = 0;
-                }
-                else
-                {
-                    this.firstTrueAxesR2 = true;
-                    R2 = (1 + gamepad.axes[5].value) / 2;
-                }
-
-                if (navigator.getGamepads()[i].axes[2] == 0 && !this.firstTrueAxesL2)
-                {
-                    L2 = 0;
-                }
-                else
-                {
-                    this.firstTrueAxesL2 = true;
-                    L2 = (1 + navigator.getGamepads()[i].axes[2]) / 2;
-                }
-            }
-            else
-            {
-                L2 = gamepad.L2;
-                R2 = gamepad.R2;
-            }
-
-            for (let j = 0; j < gamepad.axes.length; j++)
-            {
-                if (gamepad.axes[j] && gamepad.axes[j].value > 0) {
-                //    console.log(j, gamepad.axes[j]); // seem to be 5 and 6 for firefox
-                }
-            }
+            let input = getInput(gamepad);
 
             //TODO: may be use constant accel, and stick as new maximum.
 
-            if (gamepad.leftStick.x > 0.05)
+            if (input.x > 0.05)
             {
                 this.ship.body.angularAcceleration = config.angularAccel;
                 this.ship.body.maxAngular = config.angularVelocity * gamepad.leftStick.x;
             }
-            else if (gamepad.leftStick.x < -0.05)
+            else if (input.x < -0.05)
             {
                 this.ship.body.angularAcceleration = -config.angularAccel;
                 this.ship.body.maxAngular = -config.angularVelocity * gamepad.leftStick.x;
@@ -88,7 +90,8 @@ var MainGame =  new Phaser.Class({
             {
                 this.ship.body.angularAcceleration = 0;
             }
-            acceleration = (L2 - R2/2) * config.acceleration;
+
+            acceleration = (input.accel - input.reverse/2) * config.acceleration;
 
             var velocity = this.ship.body.velocity.clone();
             var rotation = this.ship.body.rotation-90;

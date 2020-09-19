@@ -50,7 +50,8 @@ var config = {
     shipSize: 0.05,
     lateralDrag: 3,
     angularVelocity: 20,
-    angularAccel: 20
+    angularAccel: 20,
+    acceleration: 10,
 };
 
 
