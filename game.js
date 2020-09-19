@@ -90,29 +90,16 @@ var MainGame =  new Phaser.Class({
             }
             acceleration = (L2 - R2) * 10; // in config!
 
-            var angle = this.ship.body.angle / Math.PI * 180;
+            var velocity = this.ship.body.velocity.clone();
             var rotation = this.ship.body.rotation-90;
+            var unit_dir = this.physics.velocityFromAngle(rotation, 1);
+            var perp_component = unit_dir.clone().normalizeLeftHand();
 
-            // When aligned, the diff is 270 
-
-            var diff = angle-rotation;
-            var perp;
-            while(diff <= -180) diff += 360;
-            while(diff > 180) diff -= 360;
-
-            if(diff > 0)
-            {
-                perp = rotation - 90;
-            }
-            else // maybe something when we are aligned !
-            {
-                perp = rotation + 90;
-            }
-
-            console.log(diff, rotation, perp);
+            var perp_velocity = perp_component.dot(velocity); // add current
+            perp_component.scale(-perp_velocity * config.lateral_drag);
 
             a1 = this.physics.velocityFromAngle(rotation, acceleration);
-            a2 = this.physics.velocityFromAngle(perp, config.lateral_drag);
+            a2 = perp_component;
             this.ship.body.setAcceleration(a1.x + a2.x, a1.y + a2.y);
 
             if (gamepad.A) {
