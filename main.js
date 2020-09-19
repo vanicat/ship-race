@@ -19,7 +19,7 @@ var Starter = new Phaser.Class({
     {
         this.scene.start("menu", null);
     }
-})
+});
 
 
 var config = {
@@ -40,5 +40,4 @@ var config = {
 
 function main() {
     game = new Phaser.Game(config);
-    console.log("yo")
 }
