@@ -36,6 +36,18 @@ function getInput(gamepad)
     return { accel: L2, reverse: R2, x: gamepad.leftStick.x };
 }
 
+function getCurrent(x, y, layer) {
+    var tile = layer.getTileAtWorldXY(x, y);
+    if(tile && (tile.properties.currentX || tile.properties.currentY))
+    {
+        return new Phaser.Math.Vector2(tile.properties.currentX, tile.properties.currentY);
+    }
+    else
+    {
+        return new Phaser.Math.Vector2(0, 0);
+    }
+}
+
 var MainGame =  new Phaser.Class({
     Extends: Phaser.Scene,
 
@@ -46,6 +58,7 @@ var MainGame =  new Phaser.Class({
         const tileset = map.addTilesetImage("tiles", "tiles");
 
         const belowLayer = map.createStaticLayer("sealevel", tileset, 0, 0);
+        this.sealevel = belowLayer;
 
         belowLayer.setCollisionByProperty({ collides: true });
 
@@ -61,8 +74,6 @@ var MainGame =  new Phaser.Class({
         this.physics.add.collider(ship, belowLayer);
 
         this.cameras.main.startFollow(this.ship);
-
-        this.current = Phaser.Math.Vector2(0, 0);
 
         ship.body.maxAngular = 100;
         ship.body.angularDrag = 10; // TODO: this in configure
@@ -109,7 +120,11 @@ var MainGame =  new Phaser.Class({
 
             acceleration = (input.accel - input.reverse/2) * config.acceleration;
 
+            var current = getCurrent(this.ship.x, this.ship.y, this.sealevel);
+
             var velocity = this.ship.body.velocity.clone();
+            velocity.add(current);
+
             var rotation = this.ship.body.rotation-90;
             var unit_dir = this.physics.velocityFromAngle(rotation, 1);
             var perp_component = unit_dir.clone().normalizeLeftHand();
