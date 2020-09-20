@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 function unitVector(angle)
 {
     return Phaser.Math.Vector2.RIGHT.clone().rotate(angle/180*Math.PI).normalize();

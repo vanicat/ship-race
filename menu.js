@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var Menu =  new Phaser.Class({
     Extends: Phaser.Scene,
 
