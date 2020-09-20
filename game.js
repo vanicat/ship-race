@@ -279,8 +279,16 @@ var MainGame =  new Phaser.Class({
 
             if (input.x > config.rotateThreshold || input.x < -config.rotateThreshold)
             {
-                body.torque += config.torque * input.x;
+                body.torque += config.torque * (input.x - body.angularVelocity / 0.02);
             }
+            else
+            {
+                body.torque -= body.angularVelocity * 0.1;
+            }
+
+            let oldtorque = body.torque;
+
+            console.log(oldtorque, body.torque,body.angularVelocity);
 
             acceleration = (input.accel - input.reverse);
 

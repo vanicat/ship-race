@@ -74,7 +74,7 @@ var config = {
     shipSize: 0.035,
     lateralDrag: 0.007,
     frontDrag: 0.003,
-    torque: 0.002,
+    torque: 0.005,
     rotateThreshold: 0.05,
     angularVelocity: 20,
     angularAccel: 0.08,
