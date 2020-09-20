@@ -284,7 +284,8 @@ var MainGame =  new Phaser.Class({
             ship.applyForce(perp_component); 
             ship.applyForce(unitVector(ship_angle).scale(ship.power/100 * config.acceleration)); // Should use thrust something
 
-            this.nextObjectifAngle()
+            this.nextObjectifAngle();
+
             if(contain(this.nextPassage.rect, ship)) {
                 // TODO : win the game
                 this.nextObjectif();
