@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="5">
  <editorsettings>
   <export target="macarte.json" format="json"/>
  </editorsettings>
@@ -228,12 +228,29 @@
 10,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8
 </data>
  </layer>
- <objectgroup id="2" name="objects" visible="0" offsetx="27.2727" offsety="-15.1515">
-  <object id="1" name="start" x="2154.24" y="1539.58">
+ <objectgroup id="2" name="objects" offsetx="27.2727" offsety="-15.1515">
+  <object id="1" name="start" x="2122.24" y="1554.25">
    <properties>
     <property name="type" value="start"/>
    </properties>
    <point/>
+  </object>
+  <object id="2" name="p1" type="passage" x="1062.73" y="1905.15" width="136" height="58">
+   <properties>
+    <property name="passage" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="3" name="p2" type="passage" x="1186.73" y="2541.15" width="162" height="140">
+   <properties>
+    <property name="passage" type="int" value="2"/>
+    <property name="type" value="passage"/>
+   </properties>
+  </object>
+  <object id="4" name="p3" type="passage" x="2470.73" y="2497.15" width="190" height="140">
+   <properties>
+    <property name="passage" type="int" value="3"/>
+    <property name="type" value="passage"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

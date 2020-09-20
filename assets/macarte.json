@@ -42,19 +42,80 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2154.24,
-                 "y":1539.58
+                 "x":2122.24,
+                 "y":1554.24666666667
+                }, 
+                {
+                 "height":58,
+                 "id":2,
+                 "name":"p1",
+                 "properties":[
+                        {
+                         "name":"passage",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"passage",
+                 "visible":true,
+                 "width":136,
+                 "x":1062.7273,
+                 "y":1905.1515
+                }, 
+                {
+                 "height":140,
+                 "id":3,
+                 "name":"p2",
+                 "properties":[
+                        {
+                         "name":"passage",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"passage"
+                        }],
+                 "rotation":0,
+                 "type":"passage",
+                 "visible":true,
+                 "width":162,
+                 "x":1186.7273,
+                 "y":2541.1515
+                }, 
+                {
+                 "height":140,
+                 "id":4,
+                 "name":"p3",
+                 "properties":[
+                        {
+                         "name":"passage",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"passage"
+                        }],
+                 "rotation":0,
+                 "type":"passage",
+                 "visible":true,
+                 "width":190,
+                 "x":2470.7273,
+                 "y":2497.1515
                 }],
          "offsetx":27.2727,
          "offsety":-15.1515,
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":2,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
