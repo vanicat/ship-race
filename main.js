@@ -7,6 +7,7 @@ var Starter = new Phaser.Class({
     preload: function ()
     {
         this.load.image('boat', 'assets/batteau.svg');
+        this.load.svg('board', 'assets/board.svg');
         this.load.image('tiles', 'assets/tile.png');
         this.load.tilemapTiledJSON('level1', 'assets/macarte.json');
     },
@@ -71,7 +72,14 @@ var config = {
     rotateThreshold: 0.05,
     angularVelocity: 20,
     angularAccel: 0.08,
-    acceleration: 0.01,
+    acceleration: 0.0005,
+    hid: {
+        size: 100,
+        powerX: (180+150/2),
+        powerY: (25+50/2),
+        hullX: (450+150/2),
+        hullY: (25+50/2),
+    }
 };
 
 
