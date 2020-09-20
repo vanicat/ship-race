@@ -9,7 +9,7 @@ var Menu =  new Phaser.Class({
         
         let scene = this.scene;
         this.input.once('pointerup', function (pointer) {
-            scene.start("game");
+            scene.start("game", { map: 0 });
         });
 
         //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);

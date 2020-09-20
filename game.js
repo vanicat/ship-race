@@ -65,9 +65,9 @@ function contain(rectangle, point) {
 var MainGame =  new Phaser.Class({
     Extends: Phaser.Scene,
 
-    createMap: function()
+    createMap: function(mapName)
     {
-        const map = this.make.tilemap({ key: "level1" });
+        const map = this.make.tilemap({ key: mapName });
 
         const tileset = map.addTilesetImage("tiles", "tiles");
 
@@ -146,9 +146,9 @@ var MainGame =  new Phaser.Class({
         return ship;
     },
 
-    create: function () 
+    create: function (args) 
     {
-        const spawnPoint = this.createMap();
+        const spawnPoint = this.createMap(config.maps[args.map]);
 
         // HID
         const hidX = 0;
