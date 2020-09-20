@@ -10,6 +10,7 @@ var Starter = new Phaser.Class({
     {
         this.load.image('boat', 'assets/batteau.svg');
         this.load.svg('board', 'assets/board.svg');
+        this.load.svg('start', 'assets/start.svg');
         this.load.image('tiles', 'assets/tile.png');
         this.load.tilemapTiledJSON('level1', 'assets/macarte.json');
     },
