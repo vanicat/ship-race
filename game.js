@@ -70,15 +70,17 @@ var MainGame =  new Phaser.Class({
         belowLayer.setCollisionByProperty({ collides: true });
         this.matter.world.convertTilemapLayer(belowLayer);
 
-        passages = map.filterObjects("objects", function (obj) { return obj.type === "passage";});
-        
+        let passages = map.filterObjects("objects", function (obj) { return obj.type === "passage";});
+        this.passages = passages.slice();
+
         for(let i = 0; i < passages.length; i++) 
         {
             let r = this.add.rectangle(passages[i].x, passages[i].y, passages[i].width, passages[i].height);
-            r.passage = passages[i].properties.find(obj => obj.name === "passage").value;
+            let k = passages[i].properties.find(obj => obj.name === "passage").value;
+            this.passages[k - 1] = r;
         }
 
-        this.passages = passages;
+        this.nextPassage = 0;
 
         return map.findObject("objects", obj => obj.name === "start");
     },
