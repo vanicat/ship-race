@@ -56,9 +56,8 @@ function getFlow(x, y, layer) {
 var MainGame =  new Phaser.Class({
     Extends: Phaser.Scene,
 
-    create: function () 
+    createMap: function()
     {
-        // MAP
         const map = this.make.tilemap({ key: "level1" });
 
         const tileset = map.addTilesetImage("tiles", "tiles");
@@ -71,9 +70,21 @@ var MainGame =  new Phaser.Class({
         belowLayer.setCollisionByProperty({ collides: true });
         this.matter.world.convertTilemapLayer(belowLayer);
 
-        // SHIP
-        const spawnPoint = map.findObject("objects", obj => obj.name === "start");
+        passages = map.filterObjects("objects", function (obj) { return obj.type === "passage";});
+        
+        for(let i = 0; i < passages.length; i++) 
+        {
+            let r = this.add.rectangle(passages[i].x, passages[i].y, passages[i].width, passages[i].height);
+            r.passage = passages[i].properties.find(obj => obj.name === "passage").value;
+        }
 
+        this.passages = passages;
+
+        return map.findObject("objects", obj => obj.name === "start");
+    },
+
+    createShip: function(spawnPoint, powerText, hullText)
+    {
         let ship = this.matter.add.image(spawnPoint.x, spawnPoint.y, 'boat');
         ship.spawnPoint = spawnPoint;
 
@@ -91,34 +102,23 @@ var MainGame =  new Phaser.Class({
         ship.setBounce(0.05);
         ship.setFrictionAir(config.frontDrag);
 
-        // CAMERA
-        const hidX = 0;
-        const hidY = -config.hid.size * 2;
+        ship.setOnCollide(function (data){
+            normal = new Phaser.Math.Vector2(data.collision.normal);
+            energy = normal.dot(ship.body.velocity);
+            ship.setHull(ship.hull - energy);
+            if(ship.hull <= 0)
+            {
+                ship.gameover = true;
+            }
 
-        this.cameras.main.startFollow(this.ship)
-        .setBounds(0, 0, this.sealevel.width, this.sealevel.height)
-        .setSize(config.width, config.height - config.hid.size)
-        .setPosition(0,config.hid.size);
-        this.cameras.snd = this.cameras.add(0, 0, config.width, config.hid.size)
-        .setScroll(hidX, hidY);
+            ship.setPower(0);
+        });
 
-        // HID
-        this.add.image(0, hidY, 'board')
-        .setOrigin(0, 0);
-        let powerText = this.add.text(hidX + config.hid.powerX, hidY + config.hid.powerY, 'None')
-        .setOrigin(0.5, 0.5)
-        .setFontSize(32)
-        .setColor('#000000')
-        .setFontFamily('"Arial"');
-        let hullText = this.add.text(hidX + config.hid.hullX, hidY + config.hid.hullY, 'None')
-        .setOrigin(0.5, 0.5)
-        .setFontSize(32)
-        .setColor('#000000')
-        .setFontFamily('"Arial"');
+        ship.gameover = false;
 
         ship.setHull = function(x) {
             ship.hull = x;
-            hullText.setText(x);
+            hullText.setText(Math.floor(x));
         };
 
         ship.setHull(100);
@@ -133,6 +133,39 @@ var MainGame =  new Phaser.Class({
         ship.addPower = function(x){
             ship.setPower(Phaser.Math.Clamp(ship.power + x, -40, 100));
         };
+
+        return ship;
+    },
+
+    create: function () 
+    {
+        const spawnPoint = this.createMap();
+
+        // HID
+        const hidX = 0;
+        const hidY = -config.hid.size * 2;
+        this.add.image(0, hidY, 'board')
+        .setOrigin(0, 0);
+        let powerText = this.add.text(hidX + config.hid.powerX, hidY + config.hid.powerY, 'None')
+        .setOrigin(0.5, 0.5)
+        .setFontSize(32)
+        .setColor('#000000')
+        .setFontFamily('"Arial"');
+        let hullText = this.add.text(hidX + config.hid.hullX, hidY + config.hid.hullY, 'None')
+        .setOrigin(0.5, 0.5)
+        .setFontSize(32)
+        .setColor('#000000')
+        .setFontFamily('"Arial"');
+
+        const ship = this.createShip(spawnPoint, powerText, hullText);
+
+        // CAMERA
+        this.cameras.main.startFollow(ship)
+        .setBounds(0, 0, this.sealevel.width, this.sealevel.height)
+        .setSize(config.width, config.height - config.hid.size)
+        .setPosition(0,config.hid.size);
+        this.cameras.snd = this.cameras.add(0, 0, config.width, config.hid.size)
+        .setScroll(hidX, hidY);
     },
 
     update: function () 
