@@ -41,19 +41,27 @@ var config = {
         gamepad: true,
     },
     physics: {
-        default: 'arcade',
-        arcade: {
-            // debug: true,
+        default: 'matter',
+        matter: {
+            debug: true,
+
+            gravity: {
+                x: 0,
+                y: 0
+            }
         }
     },
     scene: [ Starter ],
     parent: "game",
     textStyle: { fontSize: '32px', fill: '#FFF', boundsAlignH: "center", boundsAlignV: "middle" },
-    shipSize: 0.05,
-    lateralDrag: 3,
+    shipSize: 0.035,
+    lateralDrag: 0.007,
+    frontDrag: 0.003,
+    torque: 0.002,
+    rotateThreshold: 0.05,
     angularVelocity: 20,
-    angularAccel: 20,
-    acceleration: 10,
+    angularAccel: 0.08,
+    acceleration: 0.01,
 };
 
 

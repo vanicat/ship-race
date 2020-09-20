@@ -1,3 +1,8 @@
+function unitVector(angle)
+{
+    return Phaser.Math.Vector2.RIGHT.clone().rotate(angle/180*Math.PI).normalize();
+}
+
 function getInput(gamepad)
 {
     if (!this.myonlylog) {
@@ -36,7 +41,7 @@ function getInput(gamepad)
     return { accel: L2, reverse: R2, x: gamepad.leftStick.x };
 }
 
-function getCurrent(x, y, layer) {
+function getFlow(x, y, layer) {
     var tile = layer.getTileAtWorldXY(x, y);
     if(tile && (tile.properties.currentX || tile.properties.currentY))
     {
@@ -60,28 +65,26 @@ var MainGame =  new Phaser.Class({
         const belowLayer = map.createStaticLayer("sealevel", tileset, 0, 0);
         this.sealevel = belowLayer;
 
+
         belowLayer.setCollisionByProperty({ collides: true });
+        this.matter.world.convertTilemapLayer(belowLayer);
 
         const spawnPoint = map.findObject("objects", obj => obj.name === "start");
 
-        let ship = this.add.image(spawnPoint.x, spawnPoint.y, 'boat');
+        let ship = this.matter.add.image(spawnPoint.x, spawnPoint.y, 'boat');
         //ship.anchor.setTo(0.5, 0.5); comment on fait en
         ship.setScale(config.shipSize);
         
-        this.physics.add.existing(ship);
-        this.ship = ship;
 
-        this.physics.add.collider(ship, belowLayer);
+        this.ship = ship;
+        ship.setMass(4);
+        ship.setBounce(0.01);
+        ship.setFrictionAir(config.frontDrag);
 
         this.cameras.main.startFollow(this.ship);
 
-        ship.body.maxAngular = 100;
-        ship.body.angularDrag = 10; // TODO: this in configure
-        ship.body.drag = 20;
 
-        //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);
-        //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);
-        //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);
+        this.matter.world.createDebugGraphic();
     },
 
     update: function () 
@@ -92,7 +95,6 @@ var MainGame =  new Phaser.Class({
         for (let i = 0; i < pads.length; i++)
         {
             var gamepad = pads[i];
-            var L2, R2;
 
             if (!gamepad)
             {
@@ -103,38 +105,33 @@ var MainGame =  new Phaser.Class({
 
             //TODO: may be use constant accel, and stick as new maximum.
 
-            if (input.x > 0.05)
+            var ship = this.ship;
+            var body = this.ship.body;
+            var ship_angle = ship.angle - 90;
+
+            var velocity = new Phaser.Math.Vector2(body.velocity.x, body.velocity.y);
+
+            if (input.x > config.rotateThreshold || input.x < -config.rotateThreshold)
             {
-                this.ship.body.angularAcceleration = config.angularAccel;
-                this.ship.body.maxAngular = config.angularVelocity * gamepad.leftStick.x;
+                body.torque += config.torque * input.x;
             }
-            else if (input.x < -0.05)
-            {
-                this.ship.body.angularAcceleration = -config.angularAccel;
-                this.ship.body.maxAngular = -config.angularVelocity * gamepad.leftStick.x;
-            }
-            else 
-            {
-                this.ship.body.angularAcceleration = 0;
-            }
+
 
             acceleration = (input.accel - input.reverse/2) * config.acceleration;
 
-            var current = getCurrent(this.ship.x, this.ship.y, this.sealevel);
+            var flow = getFlow(this.ship.x, this.ship.y, this.sealevel);
 
-            var velocity = this.ship.body.velocity.clone();
-            velocity.add(current);
+            velocity.add(flow);
 
-            var rotation = this.ship.body.rotation-90;
-            var unit_dir = this.physics.velocityFromAngle(rotation, 1);
+            
+            var unit_dir = unitVector(ship_angle);
             var perp_component = unit_dir.clone().normalizeLeftHand();
 
-            var perp_velocity = perp_component.dot(velocity); // add current
+            var perp_velocity = perp_component.dot(velocity);
             perp_component.scale(-perp_velocity * config.lateralDrag);
 
-            a1 = this.physics.velocityFromAngle(rotation, acceleration);
-            a2 = perp_component;
-            this.ship.body.setAcceleration(a1.x + a2.x, a1.y + a2.y);
+            ship.applyForce(perp_component); 
+            ship.applyForce(unitVector(ship_angle).scale(acceleration*0.01));
 
             if (gamepad.A) {
                 this.ship.body.reset(config.width/2, config.height/2);
