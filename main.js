@@ -77,11 +77,14 @@ var config = {
     acceleration: 0.00025,
     hid: {
         size: 100,
-        powerX: (180+150/2),
+        powerX: (180+140/2),
         powerY: (25+50/2),
-        hullX: (450+150/2),
+        hullX: (450+140/2),
         hullY: (25+50/2),
-    }
+        angleX: (750+140/2),
+        angleY: (25+50/2),
+    },
+    maps: ['level1']
 };
 
 

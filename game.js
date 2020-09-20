@@ -165,8 +165,14 @@ var MainGame =  new Phaser.Class({
         .setFontSize(32)
         .setColor('#000000')
         .setFontFamily('"Arial"');
+        let angleText = this.add.text(hidX + config.hid.angleX, hidY + config.hid.angleY, 'None')
+        .setOrigin(0.5, 0.5)
+        .setFontSize(32)
+        .setColor('#000000')
+        .setFontFamily('"Arial"');
 
         const ship = this.createShip(spawnPoint, powerText, hullText);
+        this.angleText = angleText;
 
         // CAMERA
         this.cameras.main.startFollow(ship)
@@ -195,6 +201,24 @@ var MainGame =  new Phaser.Class({
 
         this.nextPassage.x = passage.x + passage.width / 2;
         this.nextPassage.y = passage.y + passage.height / 2;
+    },
+
+    nextObjectifAngle: function ()
+    {
+        let here = new Phaser.Math.Vector2(this.ship);
+        let dir = here.subtract(this.nextPassage);
+        let angle = - dir.angle() * 180 / Math.PI;
+        angle += this.ship.angle;
+        angle -= 270;
+
+        while(angle < -180) {
+            angle += 360;
+        }
+
+        this.angleText.setText(Math.round(angle));
+
+
+        return angle;
     },
 
     update: function () 
@@ -259,6 +283,8 @@ var MainGame =  new Phaser.Class({
 
             ship.applyForce(perp_component); 
             ship.applyForce(unitVector(ship_angle).scale(ship.power/100 * config.acceleration)); // Should use thrust something
+
+            this.nextObjectifAngle()
             if(contain(this.nextPassage.rect, ship)) {
                 // TODO : win the game
                 this.nextObjectif();
