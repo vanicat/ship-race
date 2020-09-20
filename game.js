@@ -89,8 +89,6 @@ var MainGame =  new Phaser.Class({
             this.passages[k - 1] = r;
         }
 
-        this.nextPassage = 0;
-
         return map.findObject("objects", obj => obj.name === "start");
     },
 
@@ -177,6 +175,26 @@ var MainGame =  new Phaser.Class({
         .setPosition(0,config.hid.size);
         this.cameras.snd = this.cameras.add(0, 0, config.width, config.hid.size)
         .setScroll(hidX, hidY);
+
+        this.nextObjectif();
+    },
+
+    nextObjectif: function ()
+    {
+        if (this.nextPassage === undefined)
+        {
+            this.nextPassage = { num: 0 };
+        }
+        else
+        {
+            this.nextPassage.num ++;
+        }
+
+        let passage = this.passages[this.nextPassage.num];
+        this.nextPassage.rect = passage;
+
+        this.nextPassage.x = passage.x + passage.width / 2;
+        this.nextPassage.y = passage.y + passage.height / 2;
     },
 
     update: function () 
@@ -241,6 +259,10 @@ var MainGame =  new Phaser.Class({
 
             ship.applyForce(perp_component); 
             ship.applyForce(unitVector(ship_angle).scale(ship.power/100 * config.acceleration)); // Should use thrust something
+            if(contain(this.nextPassage.rect, ship)) {
+                // TODO : win the game
+                this.nextObjectif();
+            }
         }
     }
 });
