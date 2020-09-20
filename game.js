@@ -55,6 +55,13 @@ function getFlow(x, y, layer) {
     }
 }
 
+function contain(rectangle, point) {
+    return rectangle.x <= point.x &&
+        rectangle.x + rectangle.width >= point.x &&
+        rectangle.y <= point.y &&
+        rectangle.y + rectangle.height >= point.y;
+}
+
 var MainGame =  new Phaser.Class({
     Extends: Phaser.Scene,
 
