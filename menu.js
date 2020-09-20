@@ -5,7 +5,7 @@ var Menu =  new Phaser.Class({
 
     create: function () 
     {
-        let startButton = this.add.text(config.width / 2, config.height / 2, 'Click to start Start Game', config.textStyle);
+        let startButton = this.add.image(config.width / 2, config.height / 2, 'start');
         
         let scene = this.scene;
         this.input.once('pointerup', function (pointer) {
@@ -19,5 +19,22 @@ var Menu =  new Phaser.Class({
 
     update: function () 
     {
+        var pads = this.input.gamepad.gamepads;
+
+        for (let i = 0; i < pads.length; i++)
+        {
+            var gamepad = pads[i];
+
+            if (!gamepad)
+            {
+                continue;
+            }
+
+            let input = getInput(gamepad, i);
+
+            if (gamepad.A) {
+                this.scene.start("game", { map: 0 });
+            }
+        }
     }
 });

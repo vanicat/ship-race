@@ -33,7 +33,8 @@ var Starter = new Phaser.Class({
 
     update: function ()
     {
-        this.scene.start("menu", null);
+        // this.scene.start("game", { map: 0 });
+        this.scene.start("menu", null); // menu should be activated soon.
     }
 });
 
