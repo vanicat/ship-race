@@ -43,7 +43,17 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            debug: true,
+            debug: {
+                
+                showAngleIndicator: true,
+                angleColor: 0xe81153,
+                
+                showVelocity: true,
+                velocityColor: 0x00aeef,
+
+                showBody: true,
+                showStaticBody: true,
+            },
 
             gravity: {
                 x: 0,

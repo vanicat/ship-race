@@ -65,6 +65,8 @@ var MainGame =  new Phaser.Class({
         const belowLayer = map.createStaticLayer("sealevel", tileset, 0, 0);
         this.sealevel = belowLayer;
 
+        this.matter.world.setBounds(0, 0, this.sealevel.width, this.sealevel.height);
+        this.cameras.main.setBounds(0, 0, this.sealevel.width, this.sealevel.height);
 
         belowLayer.setCollisionByProperty({ collides: true });
         this.matter.world.convertTilemapLayer(belowLayer);
@@ -129,6 +131,7 @@ var MainGame =  new Phaser.Class({
 
             var perp_velocity = perp_component.dot(velocity);
             perp_component.scale(-perp_velocity * config.lateralDrag);
+            perp_component.limit(0.1);
 
             ship.applyForce(perp_component); 
             ship.applyForce(unitVector(ship_angle).scale(acceleration*0.01));
@@ -137,9 +140,5 @@ var MainGame =  new Phaser.Class({
                 this.ship.body.reset(config.width/2, config.height/2);
             }
         }
-
-        var cam = this.cameras.main;
-        cam.centerOn(this.ship.x, this.ship.y);
-
     }
 });
