@@ -5,7 +5,7 @@ var Victory =  new Phaser.Class({
 
     create: function (data) 
     {
-        let score;
+        console.log(data);
         if (data.score) {
             message = 'You did it! Your score is ' + data.score; 
         }
@@ -17,8 +17,8 @@ var Victory =  new Phaser.Class({
         {
             message = 'You dit it!';
         }
-        this.add.text(config.width / 2, config.height / 3, message, config.textStyle);
-        this.add.text(config.width / 2, 2 * config.height / 3, 'use A to restart', config.textStyle);
+        this.add.text(config.width / 2, config.height / 3, message, config.textStyle).setOrigin(0.5, 0.5);
+        this.add.text(config.width / 2, 2 * config.height / 3, 'use A to restart', config.textStyle).setOrigin(0.5, 0.5);
         
         //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);
         //startButton = this.add.text(this.physics.world.bounds.centerX, 16, 'Start Game', config.textStyle);
@@ -37,8 +37,6 @@ var Victory =  new Phaser.Class({
             {
                 continue;
             }
-
-            let input = getInput(gamepad, i);
 
             if (gamepad.A) {
                 this.scene.start("menu", null);

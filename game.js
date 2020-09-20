@@ -207,11 +207,7 @@ var MainGame =  new Phaser.Class({
 
         this.restText.setText(this.passages.length - this.nextPassage.num);
 
-        if(this.nextPassage.num >= this.passages.length) 
-        {
-            nextLevel(this.scene, this.numMap);
-        }
-        else
+        if(this.nextPassage.num < this.passages.length) 
         {
             let passage = this.passages[this.nextPassage.num];
             this.nextPassage.rect = passage;
@@ -239,8 +235,12 @@ var MainGame =  new Phaser.Class({
         return angle;
     },
 
-    update: function () 
+    update: function (time, elapsed) 
     {
+        if(this.timeStart === undefined) 
+        {
+            this.timeStart = time;
+        }
         window.myGame = this;
 
         var pads = this.input.gamepad.gamepads;
@@ -315,6 +315,9 @@ var MainGame =  new Phaser.Class({
         if (this.ship.gameover)
         {
             this.scene.start("victory", {gameover: true});
+        }
+        else if (this.nextPassage.num >= this.passages.length) {
+            this.scene.start("victory", { score: Math.round((time - this.timeStart) / 100) });
         }
     }
 });
