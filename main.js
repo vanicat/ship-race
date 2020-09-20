@@ -38,7 +38,7 @@ var Starter = new Phaser.Class({
 
 var config = {
     type: Phaser.AUTO,
-    width: 900,
+    width: 1200,
     height: 600,
     input: {
         gamepad: true,
@@ -84,6 +84,8 @@ var config = {
         hullY: (25+50/2),
         angleX: (750+140/2),
         angleY: (25+50/2),
+        restX: (1010+140/2),
+        restY: (25+50/2),
     },
     maps: ['level1']
 };

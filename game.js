@@ -170,9 +170,15 @@ var MainGame =  new Phaser.Class({
         .setFontSize(32)
         .setColor('#000000')
         .setFontFamily('"Arial"');
+        let restText = this.add.text(hidX + config.hid.restX, hidY + config.hid.restY, 'None')
+        .setOrigin(0.5, 0.5)
+        .setFontSize(32)
+        .setColor('#000000')
+        .setFontFamily('"Arial"');
 
         const ship = this.createShip(spawnPoint, powerText, hullText);
         this.angleText = angleText;
+        this.restText = restText;
 
         // CAMERA
         this.cameras.main.startFollow(ship)
@@ -198,6 +204,7 @@ var MainGame =  new Phaser.Class({
 
         let passage = this.passages[this.nextPassage.num];
         this.nextPassage.rect = passage;
+        this.restText.setText(this.passages.length - this.nextPassage.num);
 
         this.nextPassage.x = passage.x + passage.width / 2;
         this.nextPassage.y = passage.y + passage.height / 2;
