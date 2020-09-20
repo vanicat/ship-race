@@ -150,6 +150,8 @@ var MainGame =  new Phaser.Class({
     {
         const spawnPoint = this.createMap(config.maps[args.map]);
 
+        this.numMap = args.map;
+
         // HID
         const hidX = 0;
         const hidY = -config.hid.size * 2;
@@ -188,12 +190,12 @@ var MainGame =  new Phaser.Class({
         this.cameras.snd = this.cameras.add(0, 0, config.width, config.hid.size)
         .setScroll(hidX, hidY);
 
-        this.nextObjectif();
+        this.nextObjectif(true);
     },
 
-    nextObjectif: function ()
+    nextObjectif: function (init)
     {
-        if (this.nextPassage === undefined)
+        if (this.nextPassage === undefined || init)
         {
             this.nextPassage = { num: 0 };
         }
@@ -202,12 +204,20 @@ var MainGame =  new Phaser.Class({
             this.nextPassage.num ++;
         }
 
-        let passage = this.passages[this.nextPassage.num];
-        this.nextPassage.rect = passage;
         this.restText.setText(this.passages.length - this.nextPassage.num);
 
-        this.nextPassage.x = passage.x + passage.width / 2;
-        this.nextPassage.y = passage.y + passage.height / 2;
+        if(this.nextPassage.num >= this.passages.length) 
+        {
+            nextLevel(this.scene, this.numMap);
+        }
+        else
+        {
+            let passage = this.passages[this.nextPassage.num];
+            this.nextPassage.rect = passage;
+
+            this.nextPassage.x = passage.x + passage.width / 2;
+            this.nextPassage.y = passage.y + passage.height / 2;
+        }
     },
 
     nextObjectifAngle: function ()

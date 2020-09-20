@@ -18,6 +18,7 @@ var Starter = new Phaser.Class({
     {
         this.scene.add("game", MainGame, false);
         this.scene.add("menu", Menu, false);
+        this.scene.add("victory", Victory, false);
 
         if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1)
         {
@@ -93,4 +94,25 @@ var config = {
 
 function main() {
     game = new Phaser.Game(config);
+}
+
+function nextLevel(scene, num) {
+    if(num === undefined)
+    {
+        num = 0;
+    }
+    else
+    {
+        num ++;
+    }
+
+    if(num >= config.maps.length)
+    {
+        scene.start("victory");
+    }
+    else
+    {
+        scene.start("game", { map: num });
+    }
+
 }
