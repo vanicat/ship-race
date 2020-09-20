@@ -3,9 +3,8 @@ var Menu =  new Phaser.Class({
 
     create: function () 
     {
-        let startButton = this.add.text(this.physics.world.bounds.centerX-200, 300, 'Click to start Start Game', config.textStyle);
-        startButton.body.immovable = true;
-
+        let startButton = this.add.text(config.width / 2, config.height / 2, 'Click to start Start Game', config.textStyle);
+        
         let scene = this.scene;
         this.input.once('pointerup', function (pointer) {
             scene.start("game");
