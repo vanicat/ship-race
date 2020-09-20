@@ -74,13 +74,19 @@ var MainGame =  new Phaser.Class({
         const spawnPoint = map.findObject("objects", obj => obj.name === "start");
 
         let ship = this.matter.add.image(spawnPoint.x, spawnPoint.y, 'boat');
+
         //ship.anchor.setTo(0.5, 0.5); comment on fait en
         ship.setScale(config.shipSize);
-        
+
+        let body = this.matter.add.rectangle(spawnPoint.x, spawnPoint.y, ship.width*config.shipSize, ship.height*config.shipSize, {
+            chamfer: { radius: 15 }
+        });
+
+        ship.setExistingBody(body);
 
         this.ship = ship;
         ship.setMass(4);
-        ship.setBounce(0.01);
+        ship.setBounce(0.05);
         ship.setFrictionAir(config.frontDrag);
 
         this.cameras.main.startFollow(this.ship);
@@ -134,7 +140,7 @@ var MainGame =  new Phaser.Class({
             perp_component.limit(0.1);
 
             ship.applyForce(perp_component); 
-            ship.applyForce(unitVector(ship_angle).scale(acceleration*0.01));
+            ship.applyForce(unitVector(ship_angle).scale(acceleration*0.01)); // Should use thrust something
 
             if (gamepad.A) {
                 this.ship.body.reset(config.width/2, config.height/2);

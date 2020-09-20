@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.54879343"
      inkscape:cx="746.82777"
-     inkscape:cy="1098.2204"
+     inkscape:cy="733.7846"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -54,26 +54,26 @@
      id="layer1"
      transform="translate(1.3338893,1.6757919)">
     <path
-       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:3.29275"
+       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:3.49986"
        id="path4357"
        sodipodi:type="arc"
-       sodipodi:cx="93.534264"
-       sodipodi:cy="156.93398"
-       sodipodi:rx="91.55912"
-       sodipodi:ry="155.1161"
+       sodipodi:cx="105.64236"
+       sodipodi:cy="156.86906"
+       sodipodi:rx="103.53253"
+       sodipodi:ry="154.97662"
        sodipodi:start="3.0657406"
        sodipodi:end="0.079441963"
        sodipodi:open="true"
        sodipodi:arc-type="arc"
-       d="M 2.2384114,168.68857 A 91.55912,155.1161 0 0 1 45.858219,24.506447 91.55912,155.1161 0 0 1 141.49061,24.79726 91.55912,155.1161 0 0 1 184.80462,169.24375" />
+       d="M 2.4075213,168.61309 A 103.53253,154.97662 0 0 1 51.731599,24.560615 103.53253,154.97662 0 0 1 159.87008,24.851167 103.53253,154.97662 0 0 1 208.84836,169.16777" />
     <rect
-       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:3.54173"
+       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:3.73968"
        id="rect4361"
-       width="184.3019"
-       height="231.2715"
-       x="1.992798"
-       y="134.12425"
-       ry="38.417519" />
+       width="205.65491"
+       height="231.07355"
+       x="2.0917716"
+       y="134.22322"
+       ry="38.384636" />
     <rect
        style="fill:#280b8c;fill-opacity:0;stroke:#000000;stroke-width:3;stroke-opacity:0"
        id="main"
@@ -83,8 +83,8 @@
        y="-0.1757919"
        ry="1.1786765" />
     <path
-       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 0.85860997,330.93009 C 0.95895312,459.6698 69.044137,448.93436 99.327571,449.09869 127.43327,449.2512 186.99055,461.93091 188.0574,331.66751"
+       style="fill:#280b8c;fill-opacity:1;stroke:#000000;stroke-width:0.279284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 0.8682086,330.93532 C 0.98002239,459.66368 76.848302,448.92919 110.59356,449.0935 c 31.31858,0.1525 97.68409,12.83109 98.8729,-117.42082"
        id="path4369"
        sodipodi:nodetypes="csc" />
   </g>
