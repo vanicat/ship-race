@@ -5,7 +5,7 @@ function unitVector(angle)
     return Phaser.Math.Vector2.RIGHT.clone().rotate(angle/180*Math.PI).normalize();
 }
 
-function getInput(gamepad)
+function getInput(gamepad, padNum)
 {
     if (!this.myonlylog) {
         console.log(gamepad);
@@ -24,14 +24,14 @@ function getInput(gamepad)
             R2 = (1 + gamepad.axes[5].value) / 2;
         }
 
-        if (navigator.getGamepads()[i].axes[2] == 0 && !this.firstTrueAxesL2)
+        if (navigator.getGamepads()[padNum].axes[2] == 0 && !this.firstTrueAxesL2)
         {
             L2 = 0;
         }
         else
         {
             this.firstTrueAxesL2 = true;
-            L2 = (1 + navigator.getGamepads()[i].axes[2]) / 2;
+            L2 = (1 + navigator.getGamepads()[padNum].axes[2]) / 2;
         }
     }
     else
@@ -235,7 +235,7 @@ var MainGame =  new Phaser.Class({
                 continue;
             }
 
-            let input = getInput(gamepad);
+            let input = getInput(gamepad, i);
 
             if (gamepad.A) {
                 this.ship.x = this.ship.spawnPoint.x;
