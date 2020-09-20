@@ -72,7 +72,7 @@ var config = {
     rotateThreshold: 0.05,
     angularVelocity: 20,
     angularAccel: 0.08,
-    acceleration: 0.0005,
+    acceleration: 0.00025,
     hid: {
         size: 100,
         powerX: (180+150/2),
