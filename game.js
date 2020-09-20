@@ -114,7 +114,8 @@ var MainGame =  new Phaser.Class({
         ship.setOnCollide(function (data){
             normal = new Phaser.Math.Vector2(data.collision.normal);
             energy = normal.dot(ship.body.velocity);
-            ship.setHull(ship.hull - energy);
+            ship.setHull(ship.hull - energy * 5);
+
             if(ship.hull <= 0)
             {
                 ship.gameover = true;
@@ -311,5 +312,9 @@ var MainGame =  new Phaser.Class({
             }
         }
         this.nextObjectifAngle();
+        if (this.ship.gameover)
+        {
+            this.scene.start("victory", {gameover: true});
+        }
     }
 });

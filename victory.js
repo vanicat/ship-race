@@ -9,6 +9,10 @@ var Victory =  new Phaser.Class({
         if (data.score) {
             message = 'You did it! Your score is ' + data.score; 
         }
+        else if (data.gameover)
+        {
+            message = 'Sorry, you lost!';
+        }
         else
         {
             message = 'You dit it!';
