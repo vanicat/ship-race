@@ -3,7 +3,7 @@ all: images
 images: tile.png batteau.png
 
 #l’ordre compte !
-tile.png: BlackVague.png withRedVague.png rock.png batteau.png port-p1.png port-p2.png port-p3.png port-p4.png port-p5.png port-p6.png port-p7.png  port-p8.png port-p9.png
+tile.png: BlackVague.png withRedVague.png rock.png batteau.png port-p1.png port-p2.png port-p3.png port-p4.png port-p5.png port-p6.png port-p7.png  port-p8.png port-p9.png withYellowVague.png
 	montage -tile 10x $^ -geometry +0+0 tile.png
 
 %-p1.png: %.svg
