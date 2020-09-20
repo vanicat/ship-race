@@ -286,10 +286,6 @@ var MainGame =  new Phaser.Class({
                 body.torque -= body.angularVelocity * 0.1;
             }
 
-            let oldtorque = body.torque;
-
-            console.log(oldtorque, body.torque,body.angularVelocity);
-
             acceleration = (input.accel - input.reverse);
 
             ship.addPower(Math.round(acceleration * 32)/32);
