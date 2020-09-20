@@ -185,7 +185,13 @@ var MainGame =  new Phaser.Class({
             ship.applyForce(unitVector(ship_angle).scale(ship.power/100 * config.acceleration)); // Should use thrust something
 
             if (gamepad.A) {
-                this.ship.body.reset(config.width/2, config.height/2);
+                this.ship.x = this.ship.spawnPoint.x;
+                this.ship.y = this.ship.spawnPoint.y;
+                this.ship.speed = 0;
+                this.ship.setPower(0);
+                this.ship.setVelocityX(0);
+                this.ship.setVelocityY(0);
+                this.ship.setAngularVelocity(0);
             }
         }
     }
